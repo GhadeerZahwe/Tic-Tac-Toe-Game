@@ -44,3 +44,36 @@ function handleCellPlayed(clickedCell, clickedCellIndex){
     ]
 }
 
+function handleResultValidation(){
+    let roundWon = false;
+    for(let i=0; i<=7;i++){
+        const winningCondition=winningConditions[i]
+        let a = gameState[winningCondition[0]]
+        let b = gameState[winningCondition[1]]
+        let c = gameState[winningCondition[2]]
+
+        if (a==='' || b==='' || c===''){
+            continue;
+        }
+        else if (a===b && b===c){
+            roundWon=true
+            break;
+        }
+    }
+
+    if(roundWon){
+        statusDisplay.innerHTML= WinningMessage()
+        gameActive=false
+        return
+    }
+
+    let roundDraw= !gameState.includes("")
+
+    if(roundDraw){
+        statusDisplay.innerHTML=drawMessage()
+        gameActive=false
+        return
+    }
+
+    handlePlayerChange()
+}
